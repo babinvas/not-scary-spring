@@ -28,4 +28,8 @@ public class FruitService {
 		// Реализовали метод внедренного бина
 		return fruitRepository.findAll();
 	}
+
+	public void saveAll(List<FruitEntity> fruitEntities) {
+		fruitRepository.saveAll(fruitEntities);
+	}
 }
