@@ -1,9 +1,12 @@
 package babinvas.notscaryspring.entities;
 
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+// Ломбок аннотация
+@Data
 // Помечаем бин как сущность
 @Entity
 // В этой аннотации можно указать имя создаваемой таблицы
@@ -26,38 +29,4 @@ public class FruitEntity {
 
 	@Column(name = "provider_code")
 	private Integer providerCode;
-
-	public FruitEntity() {
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public String getFruitName() {
-		return fruitName;
-	}
-
-	public FruitEntity setFruitName(String fruitName) {
-		this.fruitName = fruitName;
-		return this;
-	}
-
-	public Integer getProviderCode() {
-		return providerCode;
-	}
-
-	public FruitEntity setProviderCode(Integer providerCode) {
-		this.providerCode = providerCode;
-		return this;
-	}
-
-	@Override
-	public String toString() {
-		return "FruitEntity{" +
-				"id=" + id +
-				", fruitName='" + fruitName + "'" +
-				", providerCode=" + providerCode +
-				"}";
-	}
 }

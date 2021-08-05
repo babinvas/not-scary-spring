@@ -1,21 +1,20 @@
 package babinvas.notscaryspring.services;
 
 import babinvas.notscaryspring.entities.FruitEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+// Ломбок аннотация
+@RequiredArgsConstructor
 @Service
 public class InitiateService implements CommandLineRunner {
 	// Имплементируем интерфейс CommandLineRunner (командная строка запуска)
 
 	private final FruitService fruitService;
-
-	public InitiateService(FruitService fruitService) {
-		this.fruitService = fruitService;
-	}
 
 	// Переопределяем метод который позволит
 	// нам выполнять методы нашего приложения при запуске

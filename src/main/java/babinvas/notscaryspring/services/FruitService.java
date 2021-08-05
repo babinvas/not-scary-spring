@@ -2,20 +2,18 @@ package babinvas.notscaryspring.services;
 
 import babinvas.notscaryspring.entities.FruitEntity;
 import babinvas.notscaryspring.repositories.FruitRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+// Ломбок аннотация
+@RequiredArgsConstructor
 // Помечаем бин как сервис
 @Service
 public class FruitService {
 	// Final переменная репозитория
 	private final FruitRepository fruitRepository;
-
-	// Внедрили зависимость через конструктор
-	public FruitService(FruitRepository fruitRepository) {
-		this.fruitRepository = fruitRepository;
-	}
 
 	// Принимает сущность и сохраняет ее в базу
 	public void save(FruitEntity fruitEntity) {
