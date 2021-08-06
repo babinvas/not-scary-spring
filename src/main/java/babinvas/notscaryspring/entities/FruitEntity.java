@@ -1,10 +1,14 @@
 package babinvas.notscaryspring.entities;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+// Аннотация озволяет автоматически сгенерировать сеттеры,
+// которые возвращают this  вместо void и вызывать их в стиле билдера
+@Accessors(chain = true)
 // Ломбок аннотация
 @Data
 // Помечаем бин как сущность
