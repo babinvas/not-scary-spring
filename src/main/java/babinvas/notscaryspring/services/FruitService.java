@@ -3,9 +3,11 @@ package babinvas.notscaryspring.services;
 import babinvas.notscaryspring.entities.FruitEntity;
 import babinvas.notscaryspring.repositories.FruitRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 // Ломбок аннотация
 @RequiredArgsConstructor
@@ -27,7 +29,25 @@ public class FruitService {
 		return fruitRepository.findAll();
 	}
 
+	// Сохраняет список всех сущностей из списка в базу
 	public void saveAll(List<FruitEntity> fruitEntities) {
 		fruitRepository.saveAll(fruitEntities);
+	}
+
+	// Возвращает запись из таблицы по id
+	public Optional<FruitEntity> getById(Integer id) {
+		return fruitRepository.findById(id);
+	}
+
+	// Удаляет запись из таблицы по id
+	public void delById(Integer id) {
+		fruitRepository.deleteById(id);
+	}
+
+	// Возвращает true или false при поиске в таблице Фруктов объекта,
+	// который соответствует типу FruitEntity
+	// или принадлежит к типу объекта, который наследуется от FruitEntity
+	public Boolean exist(Example<? extends FruitEntity> example) {
+		return fruitRepository.exists(example);
 	}
 }

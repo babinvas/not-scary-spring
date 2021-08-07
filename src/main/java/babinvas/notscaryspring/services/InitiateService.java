@@ -4,12 +4,10 @@ import babinvas.notscaryspring.entities.FruitEntity;
 import babinvas.notscaryspring.entities.ProviderEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 // Ломбок аннотация
@@ -93,5 +91,28 @@ public class InitiateService implements CommandLineRunner {
 		for (ProviderEntity providerEntity : providerService.getAll()) {
 			System.out.println(providerEntity);
 		}
+
+		// Получаем фрукт и поставщика из базы данных по id
+		Optional<FruitEntity> optionalFruitEntity = fruitService.getById(3);
+		Optional<ProviderEntity> optionalProviderEntity = providerService.getById(4);
+		FruitEntity fruitEntity = optionalFruitEntity.get();
+		ProviderEntity providerEntity = optionalProviderEntity.get();
+
+		System.out.println("\n" + fruitEntity);
+		System.out.println(providerEntity);
+
+		// Проверяем существует ли фрукт и поставщик в базе данных
+		Example<FruitEntity> fruitEntityExample = Example.of(fruitEntity);
+		Example<ProviderEntity> providerEntityExample = Example.of(providerEntity);
+
+		System.out.println("\n" + fruitService.exist(fruitEntityExample));
+		System.out.println(providerService.exist(providerEntityExample));
+
+		// Удаляем фрукт и поставщика из базы данных по id
+		fruitService.delById(3);
+		providerService.delById(4);
+
+		System.out.println("\n" + fruitService.exist(fruitEntityExample));
+		System.out.println(providerService.exist(providerEntityExample));
 	}
 }
