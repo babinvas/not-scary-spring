@@ -50,4 +50,20 @@ public class FruitService {
 	public Boolean exist(Example<? extends FruitEntity> example) {
 		return fruitRepository.exists(example);
 	}
+
+	public List<String> joinString() {
+		return fruitRepository.joinString();
+	}
+
+	public List<FruitEntity> joinFruit() {
+		return fruitRepository.joinFruit();
+	}
+
+	public List<String> joinSqlFruit() {
+		return fruitRepository.joinSqlFruit();
+	}
+
+	public List<FruitEntity> findByProviderCodeBetween(Integer from, Integer to) {
+		return fruitRepository.findByProviderCodeBetween(from, to);
+	}
 }

@@ -114,5 +114,25 @@ public class InitiateService implements CommandLineRunner {
 
 		System.out.println("\n" + fruitService.exist(fruitEntityExample));
 		System.out.println(providerService.exist(providerEntityExample));
+
+		System.out.println("\nТаблица фруктов и их поставщиков");
+		for (String join : fruitService.joinString()) {
+			System.out.println(join);
+		}
+
+		System.out.println("\nТаблица фруктов и их поставщиков");
+		for (FruitEntity join : fruitService.joinFruit()) {
+			System.out.println(join);
+		}
+
+		System.out.println("\nТаблица фруктов и их поставщиков");
+		for (String join : fruitService.joinSqlFruit()) {
+			System.out.println(join);
+		}
+
+		System.out.println("\nТаблица фруктов и их поставщиков по id поставщему (промежуток)");
+		for (FruitEntity join : fruitService.findByProviderCodeBetween(2, 5)) {
+			System.out.println(join);
+		}
 	}
 }
