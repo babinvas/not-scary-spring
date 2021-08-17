@@ -1,5 +1,7 @@
 package babinvas.notscaryspring.services;
 
+import babinvas.notscaryspring.entities.AuthorEntity;
+import babinvas.notscaryspring.entities.BookEntity;
 import babinvas.notscaryspring.entities.FruitEntity;
 import babinvas.notscaryspring.entities.ProviderEntity;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +20,68 @@ public class InitiateService implements CommandLineRunner {
 	private final FruitService fruitService;
 	private final ProviderService providerService;
 
+	private final BookService bookService;
+	private final AuthorService authorService;
+
 	// Переопределяем метод который позволит
 	// нам выполнять методы нашего приложения при запуске
 	@Override
 	public void run(String ... args) throws Exception {
+
+		showWorkWithFruitAndProviders();
+
+		List<BookEntity> bookEntityList = new ArrayList<>(
+				Arrays.asList(
+						new BookEntity()
+								.setNameBook("Горе от ума")
+								.setYearCreat(1824)
+								.setAuthorId(1),
+						new BookEntity()
+								.setNameBook("Война и мир")
+								.setYearCreat(1863)
+								.setAuthorId(2),
+						new BookEntity()
+								.setNameBook("Мцыри")
+								.setYearCreat(1838)
+								.setAuthorId(3),
+						new BookEntity()
+								.setNameBook("Евгений Онегин")
+								.setYearCreat(1833)
+								.setAuthorId(4)
+				)
+		);
+
+		List<AuthorEntity> authorEntityList = new ArrayList<>(
+				Arrays.asList(
+						new AuthorEntity()
+								.setFirstNameAuthor("Александр")
+								.setLastNameAuthor("Грибоедов"),
+						new AuthorEntity()
+								.setFirstNameAuthor("Лев")
+								.setLastNameAuthor("Толстой"),
+						new AuthorEntity()
+								.setFirstNameAuthor("Михаил")
+								.setLastNameAuthor("Лермонтов"),
+						new AuthorEntity()
+								.setFirstNameAuthor("Александр")
+								.setLastNameAuthor("Пушкин")
+				));
+
+		bookService.saveAll(bookEntityList);
+		authorService.saveAll(authorEntityList);
+
+		System.out.println("\nТаблица книг");
+		for(BookEntity book: bookService.findAll()){
+			System.out.println(book);
+		}
+
+		System.out.println("\nТаблица авторов");
+		for(AuthorEntity author : authorService.findAll()){
+			System.out.println(author);
+		}
+	}
+
+	private void showWorkWithFruitAndProviders() {
 		// Инициализируем таблицу с фруктами
 		List<FruitEntity> fruit = new ArrayList<>(      // Создаем обычный ArrayList
 				Arrays.asList(                          // Создаем обертку, которая превращает список объектов FruitEntity в List
