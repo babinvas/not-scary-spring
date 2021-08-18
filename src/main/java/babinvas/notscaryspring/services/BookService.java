@@ -20,4 +20,12 @@ public class BookService {
 	public List<BookEntity> findAll() {
 		return bookRepository.findAll();
 	}
+
+	public List<String> joinBookString() {
+		return bookRepository.joinBookString();
+	}
+
+	public List<Object[]> joinBookObj() {
+		return bookRepository.joinBookObj();
+	}
 }

@@ -79,6 +79,16 @@ public class InitiateService implements CommandLineRunner {
 		for(AuthorEntity author : authorService.findAll()){
 			System.out.println(author);
 		}
+
+		System.out.println("\nТаблица книг и их авторов ,через строку");
+		for(String book: bookService.joinBookString()) {
+			System.out.println(book);
+		}
+
+		System.out.println("\nТаблица книг и их авторов, нечитаемый объект");
+		for (Object book: bookService.joinBookObj()){
+			System.out.println(book);
+		}
 	}
 
 	private void showWorkWithFruitAndProviders() {
