@@ -1,9 +1,6 @@
 package babinvas.notscaryspring.services;
 
-import babinvas.notscaryspring.entities.AuthorEntity;
-import babinvas.notscaryspring.entities.BookEntity;
-import babinvas.notscaryspring.entities.FruitEntity;
-import babinvas.notscaryspring.entities.ProviderEntity;
+import babinvas.notscaryspring.entities.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.domain.Example;
@@ -87,6 +84,11 @@ public class InitiateService implements CommandLineRunner {
 
 		System.out.println("\nТаблица книг и их авторов, нечитаемый объект");
 		for (Object book: bookService.joinBookObj()){
+			System.out.println(book);
+		}
+
+		System.out.println("\nТаблица книг и их авторов, через стрим");
+		for(BookValueEntities book: bookService.bookValueEntitiesList()) {
 			System.out.println(book);
 		}
 	}
