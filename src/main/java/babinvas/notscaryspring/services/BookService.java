@@ -2,10 +2,12 @@ package babinvas.notscaryspring.services;
 
 import babinvas.notscaryspring.entities.BookEntity;
 import babinvas.notscaryspring.entities.BookValueEntities;
+import babinvas.notscaryspring.entities.BookValueEntitiesComparison;
 import babinvas.notscaryspring.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,11 @@ import java.util.List;
 public class BookService {
 
 	private final BookRepository bookRepository;
+	private final EntityManager entityManager;
+
+	private final String SQL_COMPARISON = "select BOOKENTITY.id_book, BOOKENTITY.name_book, " +
+			"AUTHORENTITY.first_name, AUTHORENTITY.last_name,BOOKENTITY.year_creat " +
+			"from AUTHORENTITY left join BOOKENTITY on AUTHORENTITY.id_author = BOOKENTITY.author_id";
 
 	public void saveAll(List<BookEntity> books) {
 		bookRepository.saveAll(books);
@@ -59,5 +66,13 @@ public class BookService {
 				);
 
 		return bookValueEntities;
+	}
+
+	public List<BookValueEntitiesComparison> bookValueEntitiesComparisonList() {
+		return entityManager.
+				createNativeQuery( // Для начала создаём "чистый" (native) SQL запрос
+						SQL_COMPARISON, // Из этой строковой переменной возмём запрос
+						BookValueEntitiesComparison.class) // Ответ замаппиваем в этот класс
+				.getResultList(); // Результат мне заворачиваем в список
 	}
 }

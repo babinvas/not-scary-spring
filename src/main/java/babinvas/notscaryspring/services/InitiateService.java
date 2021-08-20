@@ -91,6 +91,11 @@ public class InitiateService implements CommandLineRunner {
 		for(BookValueEntities book: bookService.bookValueEntitiesList()) {
 			System.out.println(book);
 		}
+
+		System.out.println("\nТаблица книг и их авторов, через сопоставление");
+		for (Object book : bookService.bookValueEntitiesComparisonList()) {
+			System.out.println(book);
+		}
 	}
 
 	private void showWorkWithFruitAndProviders() {
