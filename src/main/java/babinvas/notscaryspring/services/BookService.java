@@ -2,6 +2,7 @@ package babinvas.notscaryspring.services;
 
 import babinvas.notscaryspring.entities.BookEntity;
 import babinvas.notscaryspring.entities.BookValueEntities;
+import babinvas.notscaryspring.entities.BookValueEntitiesAnnotation;
 import babinvas.notscaryspring.entities.BookValueEntitiesComparison;
 import babinvas.notscaryspring.repositories.BookRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,10 @@ public class BookService {
 	private final EntityManager entityManager;
 
 	private final String SQL_COMPARISON = "select BOOKENTITY.id_book, BOOKENTITY.name_book, " +
+			"AUTHORENTITY.first_name, AUTHORENTITY.last_name,BOOKENTITY.year_creat " +
+			"from AUTHORENTITY left join BOOKENTITY on AUTHORENTITY.id_author = BOOKENTITY.author_id";
+
+	private final String SQL_ANNOTATION = "select  BOOKENTITY.id_book as id_book_value, BOOKENTITY.name_book, " +
 			"AUTHORENTITY.first_name, AUTHORENTITY.last_name,BOOKENTITY.year_creat " +
 			"from AUTHORENTITY left join BOOKENTITY on AUTHORENTITY.id_author = BOOKENTITY.author_id";
 
@@ -74,5 +79,14 @@ public class BookService {
 						SQL_COMPARISON, // Из этой строковой переменной возмём запрос
 						BookValueEntitiesComparison.class) // Ответ замаппиваем в этот класс
 				.getResultList(); // Результат мне заворачиваем в список
+	}
+
+	public List<BookValueEntitiesAnnotation> bookValueEntitiesAnnotationList() {
+		return entityManager
+				.createNativeQuery(
+						SQL_ANNOTATION,
+						"BookValueMapping"
+				)
+				.getResultList();
 	}
 }
