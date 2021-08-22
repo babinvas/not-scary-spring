@@ -20,86 +20,48 @@ public class InitiateService implements CommandLineRunner {
 	private final BookService bookService;
 	private final AuthorService authorService;
 
+	private final BookStorageService bookStorageService;
+
 	// Переопределяем метод который позволит
 	// нам выполнять методы нашего приложения при запуске
 	@Override
 	public void run(String ... args) throws Exception {
 
 		showWorkWithFruitAndProviders();
+		showWorkWithBooksAndAuthors();
 
-		List<BookEntity> bookEntityList = new ArrayList<>(
+		List<BookStorageEntity> bookStorageEntityList = new ArrayList<>(
 				Arrays.asList(
-						new BookEntity()
-								.setNameBook("Горе от ума")
-								.setYearCreat(1824)
-								.setAuthorId(1),
-						new BookEntity()
-								.setNameBook("Война и мир")
-								.setYearCreat(1863)
-								.setAuthorId(2),
-						new BookEntity()
-								.setNameBook("Мцыри")
-								.setYearCreat(1838)
-								.setAuthorId(3),
-						new BookEntity()
-								.setNameBook("Евгений Онегин")
-								.setYearCreat(1833)
-								.setAuthorId(4)
+						new BookStorageEntity()
+								.setId(1)
+								.setBookId(1)
+								.setStatus("Выдана"),
+						new BookStorageEntity()
+								.setId(2)
+								.setBookId(2)
+								.setStatus("В хранилище"),
+						new BookStorageEntity()
+								.setId(3)
+								.setBookId(3)
+								.setStatus("На реставрации"),
+						new BookStorageEntity()
+								.setId(4)
+								.setBookId(4)
+								.setStatus("Выдана")
 				)
 		);
 
-		List<AuthorEntity> authorEntityList = new ArrayList<>(
-				Arrays.asList(
-						new AuthorEntity()
-								.setFirstNameAuthor("Александр")
-								.setLastNameAuthor("Грибоедов"),
-						new AuthorEntity()
-								.setFirstNameAuthor("Лев")
-								.setLastNameAuthor("Толстой"),
-						new AuthorEntity()
-								.setFirstNameAuthor("Михаил")
-								.setLastNameAuthor("Лермонтов"),
-						new AuthorEntity()
-								.setFirstNameAuthor("Александр")
-								.setLastNameAuthor("Пушкин")
-				));
 
-		bookService.saveAll(bookEntityList);
-		authorService.saveAll(authorEntityList);
+		bookStorageService.saveAll(bookStorageEntityList);
 
-		System.out.println("\nТаблица книг");
-		for(BookEntity book: bookService.findAll()){
-			System.out.println(book);
+		System.out.println("\nТаблица хранилище книг (joinString)");
+		for(String bookStorage : bookStorageService.joinString()) {
+			System.out.println(bookStorage);
 		}
 
-		System.out.println("\nТаблица авторов");
-		for(AuthorEntity author : authorService.findAll()){
-			System.out.println(author);
-		}
-
-		System.out.println("\nТаблица книг и их авторов ,через строку");
-		for(String book: bookService.joinBookString()) {
-			System.out.println(book);
-		}
-
-		System.out.println("\nТаблица книг и их авторов, нечитаемый объект");
-		for (Object book: bookService.joinBookObj()){
-			System.out.println(book);
-		}
-
-		System.out.println("\nТаблица книг и их авторов, через стрим");
-		for(BookValueEntities book: bookService.bookValueEntitiesList()) {
-			System.out.println(book);
-		}
-
-		System.out.println("\nТаблица книг и их авторов, через сопоставление");
-		for (Object book : bookService.bookValueEntitiesComparisonList()) {
-			System.out.println(book);
-		}
-
-		System.out.println("\nТаблица книг и их авторов, через аннотацию");
-		for (Object book : bookService.bookValueEntitiesAnnotationList()) {
-			System.out.println(book);
+		System.out.println("\nТаблица хранилище книг (joinSqlFruit)");
+		for(String bookStorage : bookStorageService.joinSqlFruit()) {
+			System.out.println(bookStorage);
 		}
 	}
 
@@ -197,17 +159,17 @@ public class InitiateService implements CommandLineRunner {
 		System.out.println("\n" + fruitService.exist(fruitEntityExample));
 		System.out.println(providerService.exist(providerEntityExample));
 
-		System.out.println("\nТаблица фруктов и их поставщиков");
+		System.out.println("\nТаблица фруктов и их поставщиков (joinString)");
 		for (String join : fruitService.joinString()) {
 			System.out.println(join);
 		}
 
-		System.out.println("\nТаблица фруктов и их поставщиков");
+		System.out.println("\nТаблица фруктов и их поставщиков (joinFruit)");
 		for (FruitEntity join : fruitService.joinFruit()) {
 			System.out.println(join);
 		}
 
-		System.out.println("\nТаблица фруктов и их поставщиков");
+		System.out.println("\nТаблица фруктов и их поставщиков (joinSqlFruit)");
 		for (String join : fruitService.joinSqlFruit()) {
 			System.out.println(join);
 		}
@@ -215,6 +177,84 @@ public class InitiateService implements CommandLineRunner {
 		System.out.println("\nТаблица фруктов и их поставщиков по id поставщему (промежуток)");
 		for (FruitEntity join : fruitService.findByProviderCodeBetween(2, 5)) {
 			System.out.println(join);
+		}
+	}
+
+	private void showWorkWithBooksAndAuthors() {
+
+		List<BookEntity> bookEntityList = new ArrayList<>(
+				Arrays.asList(
+						new BookEntity()
+								.setNameBook("Горе от ума")
+								.setYearCreat(1824)
+								.setAuthorId(1),
+						new BookEntity()
+								.setNameBook("Война и мир")
+								.setYearCreat(1863)
+								.setAuthorId(2),
+						new BookEntity()
+								.setNameBook("Мцыри")
+								.setYearCreat(1838)
+								.setAuthorId(3),
+						new BookEntity()
+								.setNameBook("Евгений Онегин")
+								.setYearCreat(1833)
+								.setAuthorId(4)
+				)
+		);
+
+		List<AuthorEntity> authorEntityList = new ArrayList<>(
+				Arrays.asList(
+						new AuthorEntity()
+								.setFirstNameAuthor("Александр")
+								.setLastNameAuthor("Грибоедов"),
+						new AuthorEntity()
+								.setFirstNameAuthor("Лев")
+								.setLastNameAuthor("Толстой"),
+						new AuthorEntity()
+								.setFirstNameAuthor("Михаил")
+								.setLastNameAuthor("Лермонтов"),
+						new AuthorEntity()
+								.setFirstNameAuthor("Александр")
+								.setLastNameAuthor("Пушкин")
+				));
+
+		bookService.saveAll(bookEntityList);
+		authorService.saveAll(authorEntityList);
+
+		System.out.println("\nТаблица книг");
+		for(BookEntity book: bookService.findAll()){
+			System.out.println(book);
+		}
+
+		System.out.println("\nТаблица авторов");
+		for(AuthorEntity author : authorService.findAll()){
+			System.out.println(author);
+		}
+
+		System.out.println("\nТаблица книг и их авторов, через строку");
+		for(String book: bookService.joinBookString()) {
+			System.out.println(book);
+		}
+
+		System.out.println("\nТаблица книг и их авторов, нечитаемый объект");
+		for (Object book: bookService.joinBookObj()){
+			System.out.println(book);
+		}
+
+		System.out.println("\nТаблица книг и их авторов, через стрим");
+		for(BookValueEntities book: bookService.bookValueEntitiesList()) {
+			System.out.println(book);
+		}
+
+		System.out.println("\nТаблица книг и их авторов, через сопоставление");
+		for (Object book : bookService.bookValueEntitiesComparisonList()) {
+			System.out.println(book);
+		}
+
+		System.out.println("\nТаблица книг и их авторов, через аннотацию");
+		for (Object book : bookService.bookValueEntitiesAnnotationList()) {
+			System.out.println(book);
 		}
 	}
 }

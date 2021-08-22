@@ -13,8 +13,8 @@ public class AuthorService {
 
 	private final AuthorRepository authorRepository;
 
-	public void saveAll(List<AuthorEntity> books) {
-		authorRepository.saveAll(books);
+	public void saveAll(List<AuthorEntity> author) {
+		authorRepository.saveAll(author);
 	}
 
 	public List<AuthorEntity> findAll() {

@@ -20,4 +20,12 @@ public class BookStorageService {
 	public List<BookStorageEntity> findAll() {
 		return bookStorageRepository.findAll();
 	}
+
+	public List<String> joinString() {
+		return bookStorageRepository.joinString();
+	}
+
+	public List<String> joinSqlFruit() {
+		return bookStorageRepository.joinSqlFruit();
+	}
 }
