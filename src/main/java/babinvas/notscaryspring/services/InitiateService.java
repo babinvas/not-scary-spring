@@ -54,13 +54,23 @@ public class InitiateService implements CommandLineRunner {
 
 		bookStorageService.saveAll(bookStorageEntityList);
 
-		System.out.println("\nТаблица хранилище книг (joinString)");
+		System.out.println("\nТаблица хранилище книг, через строку (joinString)");
 		for(String bookStorage : bookStorageService.joinString()) {
 			System.out.println(bookStorage);
 		}
 
-		System.out.println("\nТаблица хранилище книг (joinSqlFruit)");
-		for(String bookStorage : bookStorageService.joinSqlFruit()) {
+		System.out.println("\nТаблица хранилище книг, через строку c применением SQL (joinSqlString)");
+		for(String bookStorage : bookStorageService.joinSqlString()) {
+			System.out.println(bookStorage);
+		}
+
+		System.out.println("\nТаблица хранилище книг, нечитаемый объект (joinBookStorageObj)");
+		for(Object bookStorage : bookStorageService.joinBookStorageObj()) {
+			System.out.println(bookStorage);
+		}
+
+		System.out.println("\nТаблица хранилище книг, через стрим (bookStorageValueEntityList)");
+		for(BookStorageValueEntity bookStorage : bookStorageService.bookStorageValueEntityList()) {
 			System.out.println(bookStorage);
 		}
 	}

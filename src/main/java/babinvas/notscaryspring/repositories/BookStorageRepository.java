@@ -16,5 +16,8 @@ public interface BookStorageRepository extends JpaRepository<BookStorageEntity, 
 			value ="select BOOKENTITY.name_book, ' '||book_storage_entity.status " +
 					"from BOOKENTITY join book_storage_entity on BOOKENTITY.id_book = book_storage_entity.book_id",
 			nativeQuery = true)
-	List<String> joinSqlFruit();
+	List<String> joinSqlString();
+
+	@Query("select b.nameBook, s.status from BookEntity b left join BookStorageEntity s on b.id = s.bookId")
+	List<Object[]> joinBookStorageObj();
 }
