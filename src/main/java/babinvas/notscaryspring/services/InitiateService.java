@@ -73,6 +73,16 @@ public class InitiateService implements CommandLineRunner {
 		for(BookStorageValueEntity bookStorage : bookStorageService.bookStorageValueEntityList()) {
 			System.out.println(bookStorage);
 		}
+
+		System.out.println("\nТаблица хранилище книг, через сопоставление (bookStorageValueEntityComparisonList)");
+		for(Object bookStorage : bookStorageService.bookStorageValueEntityComparisonList()) {
+			System.out.println(bookStorage);
+		}
+
+		System.out.println("\nТаблица хранилище книг, через аннотацию (bookStorageValueEntityAnnotationList)");
+		for (Object bookStorage : bookStorageService.bookStorageValueEntityAnnotationList()) {
+			System.out.println(bookStorage);
+		}
 	}
 
 	private void showWorkWithFruitAndProviders() {

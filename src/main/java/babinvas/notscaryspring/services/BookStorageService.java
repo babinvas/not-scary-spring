@@ -2,10 +2,13 @@ package babinvas.notscaryspring.services;
 
 import babinvas.notscaryspring.entities.BookStorageEntity;
 import babinvas.notscaryspring.entities.BookStorageValueEntity;
+import babinvas.notscaryspring.entities.BookStorageValueEntityAnnotation;
+import babinvas.notscaryspring.entities.BookStorageValueEntityComparison;
 import babinvas.notscaryspring.repositories.BookStorageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +17,13 @@ import java.util.List;
 public class BookStorageService {
 
 	private final BookStorageRepository bookStorageRepository;
+	private final EntityManager entityManager;
+
+	private final String SQL_COMPARISON = "select BOOKENTITY.id_book, BOOKENTITY.name_book, book_storage_entity.status " +
+			"from BOOKENTITY join book_storage_entity on BOOKENTITY.id_book = book_storage_entity.book_id";
+
+	private final String SQL_ANNOTATION = "select BOOKENTITY.id_book as id_book_value, BOOKENTITY.name_book, book_storage_entity.status " +
+			"from BOOKENTITY join book_storage_entity on BOOKENTITY.id_book = book_storage_entity.book_id";
 
 	public void saveAll(List<BookStorageEntity> storages) {
 		bookStorageRepository.saveAll(storages);
@@ -54,5 +64,21 @@ public class BookStorageService {
 				);
 
 		return bookStorageValueEntities;
+	}
+
+	public List<BookStorageValueEntityComparison> bookStorageValueEntityComparisonList() {
+		return entityManager
+				.createNativeQuery(
+						SQL_COMPARISON,
+						BookStorageValueEntityComparison.class)
+				.getResultList();
+	}
+
+	public List<BookStorageValueEntityAnnotation> bookStorageValueEntityAnnotationList() {
+		return entityManager
+				.createNativeQuery(
+						SQL_ANNOTATION,
+						"BookStorageValueMapping")
+				.getResultList();
 	}
 }
