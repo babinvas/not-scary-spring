@@ -1,10 +1,14 @@
 package babinvas.notscaryspring.services;
 
+import babinvas.notscaryspring.configs.MyConfig;
 import babinvas.notscaryspring.entities.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import ru.java.rush.ChuckNorris;
 
 import java.util.*;
 
@@ -22,67 +26,19 @@ public class InitiateService implements CommandLineRunner {
 
 	private final BookStorageService bookStorageService;
 
+	private final ChuckNorris chuckNorris;
+
 	// Переопределяем метод который позволит
 	// нам выполнять методы нашего приложения при запуске
 	@Override
 	public void run(String ... args) throws Exception {
+		ApplicationContext context = new AnnotationConfigApplicationContext(MyConfig.class);
 
 		showWorkWithFruitAndProviders();
 		showWorkWithBooksAndAuthors();
+		showWorkWithBooksAndStorage();
 
-		List<BookStorageEntity> bookStorageEntityList = new ArrayList<>(
-				Arrays.asList(
-						new BookStorageEntity()
-								.setId(1)
-								.setBookId(1)
-								.setStatus("Выдана"),
-						new BookStorageEntity()
-								.setId(2)
-								.setBookId(2)
-								.setStatus("В хранилище"),
-						new BookStorageEntity()
-								.setId(3)
-								.setBookId(3)
-								.setStatus("На реставрации"),
-						new BookStorageEntity()
-								.setId(4)
-								.setBookId(4)
-								.setStatus("Выдана")
-				)
-		);
-
-
-		bookStorageService.saveAll(bookStorageEntityList);
-
-		System.out.println("\nТаблица хранилище книг, через строку (joinString)");
-		for(String bookStorage : bookStorageService.joinString()) {
-			System.out.println(bookStorage);
-		}
-
-		System.out.println("\nТаблица хранилище книг, через строку c применением SQL (joinSqlString)");
-		for(String bookStorage : bookStorageService.joinSqlString()) {
-			System.out.println(bookStorage);
-		}
-
-		System.out.println("\nТаблица хранилище книг, нечитаемый объект (joinBookStorageObj)");
-		for(Object bookStorage : bookStorageService.joinBookStorageObj()) {
-			System.out.println(bookStorage);
-		}
-
-		System.out.println("\nТаблица хранилище книг, через стрим (bookStorageValueEntityList)");
-		for(BookStorageValueEntity bookStorage : bookStorageService.bookStorageValueEntityList()) {
-			System.out.println(bookStorage);
-		}
-
-		System.out.println("\nТаблица хранилище книг, через сопоставление (bookStorageValueEntityComparisonList)");
-		for(Object bookStorage : bookStorageService.bookStorageValueEntityComparisonList()) {
-			System.out.println(bookStorage);
-		}
-
-		System.out.println("\nТаблица хранилище книг, через аннотацию (bookStorageValueEntityAnnotationList)");
-		for (Object bookStorage : bookStorageService.bookStorageValueEntityAnnotationList()) {
-			System.out.println(bookStorage);
-		}
+		chuckNorris.SolutionToAllProblems("Хочу написать супер-пупер проект, чтобы меня сразу взяли в Гугл!");
 	}
 
 	private void showWorkWithFruitAndProviders() {
@@ -201,7 +157,6 @@ public class InitiateService implements CommandLineRunner {
 	}
 
 	private void showWorkWithBooksAndAuthors() {
-
 		List<BookEntity> bookEntityList = new ArrayList<>(
 				Arrays.asList(
 						new BookEntity()
@@ -275,6 +230,62 @@ public class InitiateService implements CommandLineRunner {
 		System.out.println("\nТаблица книг и их авторов, через аннотацию");
 		for (Object book : bookService.bookValueEntitiesAnnotationList()) {
 			System.out.println(book);
+		}
+	}
+
+	private void showWorkWithBooksAndStorage() {
+		List<BookStorageEntity> bookStorageEntityList = new ArrayList<>(
+				Arrays.asList(
+						new BookStorageEntity()
+								.setId(1)
+								.setBookId(1)
+								.setStatus("Выдана"),
+						new BookStorageEntity()
+								.setId(2)
+								.setBookId(2)
+								.setStatus("В хранилище"),
+						new BookStorageEntity()
+								.setId(3)
+								.setBookId(3)
+								.setStatus("На реставрации"),
+						new BookStorageEntity()
+								.setId(4)
+								.setBookId(4)
+								.setStatus("Выдана")
+				)
+		);
+
+
+		bookStorageService.saveAll(bookStorageEntityList);
+
+		System.out.println("\nТаблица хранилище книг, через строку (joinString)");
+		for(String bookStorage : bookStorageService.joinString()) {
+			System.out.println(bookStorage);
+		}
+
+		System.out.println("\nТаблица хранилище книг, через строку c применением SQL (joinSqlString)");
+		for(String bookStorage : bookStorageService.joinSqlString()) {
+			System.out.println(bookStorage);
+		}
+
+		System.out.println("\nТаблица хранилище книг, нечитаемый объект (joinBookStorageObj)");
+		for(Object bookStorage : bookStorageService.joinBookStorageObj()) {
+			System.out.println(bookStorage);
+		}
+
+		System.out.println("\nТаблица хранилище книг, через стрим (bookStorageValueEntityList)");
+		for(BookStorageValueEntity bookStorage : bookStorageService.bookStorageValueEntityList()) {
+			System.out.println(bookStorage);
+		}
+
+		System.out.println("\nТаблица хранилище книг, через сопоставление (bookStorageValueEntityComparisonList)");
+		for(Object bookStorage : bookStorageService.bookStorageValueEntityComparisonList()) {
+			System.out.println(bookStorage);
+		}
+
+		System.out.println("\nТаблица хранилище книг, через аннотацию (bookStorageValueEntityAnnotationList)");
+		for (Object bookStorage : bookStorageService.bookStorageValueEntityAnnotationList()) {
+			System.out.println(bookStorage);
 		}
 	}
 }
