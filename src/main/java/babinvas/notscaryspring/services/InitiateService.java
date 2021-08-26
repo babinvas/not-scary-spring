@@ -28,6 +28,8 @@ public class InitiateService implements CommandLineRunner {
 
 	private final ChuckNorris chuckNorris;
 
+	private final ProductService productService;
+
 	// Переопределяем метод который позволит
 	// нам выполнять методы нашего приложения при запуске
 	@Override
@@ -37,8 +39,25 @@ public class InitiateService implements CommandLineRunner {
 		showWorkWithFruitAndProviders();
 		showWorkWithBooksAndAuthors();
 		showWorkWithBooksAndStorage();
+		showWorkWithChuckNorris();
 
-		chuckNorris.SolutionToAllProblems("Хочу написать супер-пупер проект, чтобы меня сразу взяли в Гугл!");
+		List<ProductEntity> productEntities = new ArrayList<>(
+				Arrays.asList(
+						new ProductEntity()
+								.setName("Картофель")
+								.setPurchasePrice(20),
+						new ProductEntity()
+								.setName("Морковь")
+								.setPurchasePrice(14)
+				)
+		);
+
+		productService.saveAll(productEntities);
+
+		System.out.println("\nТаблица продуктов");
+		for (ProductEntity productEntity : productService.findAll()) {
+			System.out.println(productEntity);
+		}
 	}
 
 	private void showWorkWithFruitAndProviders() {
@@ -287,5 +306,9 @@ public class InitiateService implements CommandLineRunner {
 		for (Object bookStorage : bookStorageService.bookStorageValueEntityAnnotationList()) {
 			System.out.println(bookStorage);
 		}
+	}
+
+	private void showWorkWithChuckNorris() {
+		chuckNorris.SolutionToAllProblems("Хочу написать супер-пупер проект, чтобы меня сразу взяли в Гугл!");
 	}
 }
