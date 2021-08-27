@@ -41,7 +41,7 @@ public class BookStorageService {
 		return bookStorageRepository.joinSqlString();
 	}
 
-	List<Object[]> joinBookStorageObj() {
+	public List<Object[]> joinBookStorageObj() {
 		return bookStorageRepository.joinBookStorageObj();
 	}
 

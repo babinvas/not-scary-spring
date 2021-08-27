@@ -1,7 +1,9 @@
-package babinvas.notscaryspring.services;
+package babinvas.notscaryspring.utils;
 
 import babinvas.notscaryspring.configs.MyConfig;
+import babinvas.notscaryspring.dto.ProductDto;
 import babinvas.notscaryspring.entities.*;
+import babinvas.notscaryspring.services.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
@@ -15,7 +17,7 @@ import java.util.*;
 @Service
 // Ломбок аннотация
 @RequiredArgsConstructor
-public class InitiateService implements CommandLineRunner {
+public class InitiateUtil implements CommandLineRunner {
 	// Имплементируем интерфейс CommandLineRunner (командная строка запуска)
 
 	private final FruitService fruitService;
@@ -57,6 +59,11 @@ public class InitiateService implements CommandLineRunner {
 		System.out.println("\nТаблица продуктов");
 		for (ProductEntity productEntity : productService.findAll()) {
 			System.out.println(productEntity);
+		}
+
+		System.out.println("\nВитрина магазина");
+		for(ProductDto dto : productService.findAllDto()) {
+			System.out.println(dto);
 		}
 	}
 
