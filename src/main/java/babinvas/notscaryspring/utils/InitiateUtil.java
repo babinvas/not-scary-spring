@@ -65,6 +65,16 @@ public class InitiateUtil implements CommandLineRunner {
 		for(ProductDto dto : productService.findAllDto()) {
 			System.out.println(dto);
 		}
+
+		List<ProductDto> productDtos = productService.findAllDto();
+
+		productService.pack(productDtos);
+		productService.addMargin(productDtos);
+
+		System.out.println("\nВитрина магазина");
+		for(ProductDto dto : productDtos) {
+			System.out.println(dto);
+		}
 	}
 
 	private void showWorkWithFruitAndProviders() {
