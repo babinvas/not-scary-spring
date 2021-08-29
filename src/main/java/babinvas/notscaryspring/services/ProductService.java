@@ -29,7 +29,7 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 
-	public ProductDto findById(Integer id) {
+	public ProductDto findByIdDto(Integer id) {
 		return mappingUtil.mapToProductDto(
 				productRepository.findById(id)
 						.orElse(new ProductEntity()) // Если ни чего не нашли, то возвращяем пустой entity

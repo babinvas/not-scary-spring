@@ -75,6 +75,11 @@ public class InitiateUtil implements CommandLineRunner {
 		for(ProductDto dto : productDtos) {
 			System.out.println(dto);
 		}
+
+		System.out.println("\nВитрина магазина");
+		for(ProductDto dto : productDtos) {
+			System.out.printf("Купите: %s, по цене: %d%n", dto.getName(), dto.getSalePrice());
+		}
 	}
 
 	private void showWorkWithFruitAndProviders() {
