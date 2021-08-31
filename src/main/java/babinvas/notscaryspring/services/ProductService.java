@@ -55,11 +55,19 @@ public class ProductService {
 		);
 	}
 
+	public void pack(ProductDto productDto) {
+		productDto.setPackaging(packaging);
+	}
+
 	// Добавляем маржу
-	public void addMargin(List<ProductDto> list) {
+	public void addMargins(List<ProductDto> list) {
 		list.forEach(
 				productDto ->
 						productDto.setSalePrice(productDto.getPurchasePrice() * margin)
 		);
+	}
+
+	public void addMargin(ProductDto productDto) {
+		productDto.setSalePrice(productDto.getPurchasePrice() * margin);
 	}
 }
