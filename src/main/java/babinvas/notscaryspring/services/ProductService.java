@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +32,14 @@ public class ProductService {
 
 	public List<ProductEntity> findAll() {
 		return productRepository.findAll();
+	}
+
+	public Optional<ProductEntity> findById(Integer id) {
+		return productRepository.findById(id);
+	}
+
+	public void deleteById(int id) {
+		productRepository.deleteById(id);
 	}
 
 	public ProductDto findByIdDto(Integer id) {
@@ -60,7 +69,7 @@ public class ProductService {
 	}
 
 	// Добавляем маржу
-	public void addMargins(List<ProductDto> list) {
+	public void addMargin(List<ProductDto> list) {
 		list.forEach(
 				productDto ->
 						productDto.setSalePrice(productDto.getPurchasePrice() * margin)
