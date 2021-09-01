@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/speculation")
@@ -44,8 +45,49 @@ public class ProductController {
 		}
 
 		productService.pack(productDtos);
-		productService.addMargins(productDtos);
+		productService.addMargin(productDtos);
 
 		return new ResponseEntity<>(productDtos, HttpStatus.OK);
+	}
+
+	@PostMapping("/products")
+	public ResponseEntity<?> createProduct(@RequestBody ProductEntity productEntity) {
+		productService.save(productEntity);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
+	@PutMapping("/products/{id}")
+	public ResponseEntity<?> updateProduct(@PathVariable(name = "id") int id, @RequestBody ProductEntity product) {
+		Optional<ProductEntity> optionalProductEntity = productService.findById(id);
+
+		if (!optionalProductEntity.isPresent()) {
+			return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+		}
+
+		ProductEntity productEntity = optionalProductEntity.get();
+
+		if (product.getName() != null) {
+			productEntity.setName(product.getName());
+		}
+
+		if (product.getPurchasePrice() != null) {
+			productEntity.setPurchasePrice(product.getPurchasePrice());
+		}
+
+		productService.save(productEntity);
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@DeleteMapping("/products/{id}")
+	public ResponseEntity<?> deleteProduct(@PathVariable(name = "id") int id) {
+		Optional<ProductEntity> optionalProductEntity = productService.findById(id);
+
+		if (!optionalProductEntity.isPresent()) {
+			return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+		}
+
+		productService.deleteById(id);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

@@ -69,7 +69,7 @@ public class InitiateUtil implements CommandLineRunner {
 		List<ProductDto> productDtos = productService.findAllDto();
 
 		productService.pack(productDtos);
-		productService.addMargins(productDtos);
+		productService.addMargin(productDtos);
 
 		System.out.println("\nВитрина магазина");
 		for(ProductDto dto : productDtos) {
