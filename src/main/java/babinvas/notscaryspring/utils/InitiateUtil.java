@@ -1,9 +1,17 @@
 package babinvas.notscaryspring.utils;
 
 import babinvas.notscaryspring.configs.MyConfig;
-import babinvas.notscaryspring.dto.ProductDto;
-import babinvas.notscaryspring.entities.*;
-import babinvas.notscaryspring.services.*;
+import babinvas.notscaryspring.dto.products.ProductDto;
+import babinvas.notscaryspring.entities.books.*;
+import babinvas.notscaryspring.entities.fruits.FruitEntity;
+import babinvas.notscaryspring.entities.fruits.ProviderEntity;
+import babinvas.notscaryspring.entities.products.ProductEntity;
+import babinvas.notscaryspring.services.books.AuthorService;
+import babinvas.notscaryspring.services.books.BookService;
+import babinvas.notscaryspring.services.books.BookStorageService;
+import babinvas.notscaryspring.services.fruits.FruitService;
+import babinvas.notscaryspring.services.fruits.ProviderService;
+import babinvas.notscaryspring.services.products.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
