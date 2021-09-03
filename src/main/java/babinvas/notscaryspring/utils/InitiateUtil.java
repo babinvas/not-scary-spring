@@ -50,44 +50,7 @@ public class InitiateUtil implements CommandLineRunner {
 		showWorkWithBooksAndAuthors();
 		showWorkWithBooksAndStorage();
 		showWorkWithChuckNorris();
-
-		List<ProductEntity> productEntities = new ArrayList<>(
-				Arrays.asList(
-						new ProductEntity()
-								.setName("Картофель")
-								.setPurchasePrice(20),
-						new ProductEntity()
-								.setName("Морковь")
-								.setPurchasePrice(14)
-				)
-		);
-
-		productService.saveAll(productEntities);
-
-		System.out.println("\nТаблица продуктов");
-		for (ProductEntity productEntity : productService.findAll()) {
-			System.out.println(productEntity);
-		}
-
-		System.out.println("\nВитрина магазина");
-		for(ProductDto dto : productService.findAllDto()) {
-			System.out.println(dto);
-		}
-
-		List<ProductDto> productDtos = productService.findAllDto();
-
-		productService.pack(productDtos);
-		productService.addMargin(productDtos);
-
-		System.out.println("\nВитрина магазина");
-		for(ProductDto dto : productDtos) {
-			System.out.println(dto);
-		}
-
-		System.out.println("\nВитрина магазина");
-		for(ProductDto dto : productDtos) {
-			System.out.printf("Купите: %s, по цене: %d%n", dto.getName(), dto.getSalePrice());
-		}
+		showWorkWithProducts();
 	}
 
 	private void showWorkWithFruitAndProviders() {
@@ -340,5 +303,45 @@ public class InitiateUtil implements CommandLineRunner {
 
 	private void showWorkWithChuckNorris() {
 		chuckNorris.SolutionToAllProblems("Хочу написать супер-пупер проект, чтобы меня сразу взяли в Гугл!");
+	}
+
+	private void showWorkWithProducts() {
+		List<ProductEntity> productEntities = new ArrayList<>(
+				Arrays.asList(
+						new ProductEntity()
+								.setName("Картофель")
+								.setPurchasePrice(20),
+						new ProductEntity()
+								.setName("Морковь")
+								.setPurchasePrice(14)
+				)
+		);
+
+		productService.saveAll(productEntities);
+
+		System.out.println("\nТаблица продуктов");
+		for (ProductEntity productEntity : productService.findAll()) {
+			System.out.println(productEntity);
+		}
+
+		System.out.println("\nВитрина магазина");
+		for(ProductDto dto : productService.findAllDto()) {
+			System.out.println(dto);
+		}
+
+		List<ProductDto> productDtos = productService.findAllDto();
+
+		productService.pack(productDtos);
+		productService.addMargin(productDtos);
+
+		System.out.println("\nВитрина магазина");
+		for(ProductDto dto : productDtos) {
+			System.out.println(dto);
+		}
+
+		System.out.println("\nВитрина магазина");
+		for(ProductDto dto : productDtos) {
+			System.out.printf("Купите: %s, по цене: %d%n", dto.getName(), dto.getSalePrice());
+		}
 	}
 }
