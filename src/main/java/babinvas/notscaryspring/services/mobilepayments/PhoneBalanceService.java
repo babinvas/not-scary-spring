@@ -29,6 +29,10 @@ public class PhoneBalanceService {
 		return phoneBalanceRepository.findAllByNameCustomer(nameCustomer);
 	}
 
+	public void saveAll(List<PhoneBalanceEntity> list) {
+		phoneBalanceRepository.saveAll(list);
+	}
+
 	public void save(PhoneBalanceEntity entity) {
 		phoneBalanceRepository.save(entity);
 	}
