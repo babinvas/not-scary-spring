@@ -1,6 +1,6 @@
-package babinvas.notscaryspring.repositories.mobilepayment;
+package babinvas.notscaryspring.repositories.mobilepayments;
 
-import babinvas.notscaryspring.entities.mobilepayment.PhoneBalanceEntity;
+import babinvas.notscaryspring.entities.mobilepayments.PhoneBalanceEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

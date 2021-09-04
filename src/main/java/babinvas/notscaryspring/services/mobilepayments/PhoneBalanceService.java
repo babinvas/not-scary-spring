@@ -1,7 +1,7 @@
-package babinvas.notscaryspring.services.mobilepayment;
+package babinvas.notscaryspring.services.mobilepayments;
 
-import babinvas.notscaryspring.entities.mobilepayment.PhoneBalanceEntity;
-import babinvas.notscaryspring.repositories.mobilepayment.PhoneBalanceRepository;
+import babinvas.notscaryspring.entities.mobilepayments.PhoneBalanceEntity;
+import babinvas.notscaryspring.repositories.mobilepayments.PhoneBalanceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

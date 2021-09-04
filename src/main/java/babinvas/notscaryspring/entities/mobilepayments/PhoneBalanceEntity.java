@@ -1,4 +1,4 @@
-package babinvas.notscaryspring.entities.mobilepayment;
+package babinvas.notscaryspring.entities.mobilepayments;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
