@@ -42,6 +42,8 @@ public class InitiateUtil implements CommandLineRunner {
 
 	private final ProductService productService;
 
+	private final PhoneBalanceService phoneBalanceService;
+
 	// Переопределяем метод который позволит
 	// нам выполнять методы нашего приложения при запуске
 	@Override
@@ -53,6 +55,30 @@ public class InitiateUtil implements CommandLineRunner {
 		showWorkWithBooksAndStorage();
 		showWorkWithChuckNorris();
 		showWorkWithProducts();
+
+		List<PhoneBalanceEntity> phoneBalanceEntities = new ArrayList<>(
+				Arrays.asList(
+						new PhoneBalanceEntity()
+								.setNameCustomer("Иван")
+								.setNumberPhone(555000)
+								.setBalance(100),
+						new PhoneBalanceEntity()
+								.setNameCustomer("Марья")
+								.setNumberPhone(444000)
+								.setBalance(250),
+						new PhoneBalanceEntity()
+								.setNameCustomer("Иван")
+								.setNumberPhone(111000)
+								.setBalance(60)
+				)
+		);
+
+		phoneBalanceService.saveAll(phoneBalanceEntities);
+
+		System.out.println("\nТаблица телефонов");
+		for (PhoneBalanceEntity entity : phoneBalanceService.findAll()) {
+			System.out.println(entity);
+		}
 	}
 
 	private void showWorkWithFruitAndProviders() {
