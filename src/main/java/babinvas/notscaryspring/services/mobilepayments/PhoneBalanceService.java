@@ -22,7 +22,7 @@ public class PhoneBalanceService {
 	}
 
 	public List<PhoneBalanceDto> findAllDto() {
-		return phoneBalanceRepository.findAll()
+		return findAll()
 				.stream()
 				.map(mappingUtil::mapToPhoneBalanceDto)
 				.collect(Collectors.toList());
@@ -39,8 +39,12 @@ public class PhoneBalanceService {
 		);
 	}
 
-	public PhoneBalanceEntity findByNumberPhone(Integer numberPhone) {
+	public PhoneBalanceEntity findByPhoneNumber(Integer numberPhone) {
 		return phoneBalanceRepository.findByNumberPhone(numberPhone);
+	}
+
+	public PhoneBalanceDto findDtoByPhoneNumber(Integer numberPhone) {
+		return mappingUtil.mapToPhoneBalanceDto(findByPhoneNumber(numberPhone));
 	}
 
 	public List<PhoneBalanceEntity> findByNameCustomer(String nameCustomer) {
@@ -48,7 +52,7 @@ public class PhoneBalanceService {
 	}
 
 	public List<PhoneBalanceDto> findDtoByNameCustomer(String nameCustomer) {
-		return phoneBalanceRepository.findAllByNameCustomer(nameCustomer)
+		return findByNameCustomer(nameCustomer)
 				.stream()
 				.map(mappingUtil::mapToPhoneBalanceDto)
 				.collect(Collectors.toList());
@@ -62,11 +66,17 @@ public class PhoneBalanceService {
 		phoneBalanceRepository.save(entity);
 	}
 
+	public void save(PhoneBalanceDto phoneBalanceDto) {
+		save(mappingUtil.mapToPhoneBalanceEntity(phoneBalanceDto));
+	}
+
 	public void deleteById(Integer id) {
 		phoneBalanceRepository.deleteById(id);
 	}
 
 	public void addingMoneyToBalance(Integer numberPhone, Integer sum) {
-
+		PhoneBalanceDto phoneBalanceDto = findDtoByPhoneNumber(numberPhone);
+		phoneBalanceDto.setBalance(phoneBalanceDto.getBalance() + sum);
+		save(phoneBalanceDto);
 	}
 }
