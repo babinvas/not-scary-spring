@@ -5,10 +5,7 @@ import babinvas.notscaryspring.services.mobilepayments.PhoneBalanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,5 +41,17 @@ public class PhoneBalanceController {
 		return balanceDtos != null && !balanceDtos.isEmpty()
 				? ResponseEntity.ok(balanceDtos)
 				: ResponseEntity.ok().body(HttpStatus.NOT_FOUND);
+	}
+
+	@PostMapping("/entry")
+	public ResponseEntity<?> entryNumber(@RequestBody PhoneBalanceDto dto) {
+		phoneBalanceService.save(dto);
+		return ResponseEntity.ok().body(HttpStatus.CREATED);
+	}
+
+	@DeleteMapping("/delete-phoneById/{id}")
+	public ResponseEntity<?> delete(@PathVariable Integer id) {
+		phoneBalanceService.deleteById(id);
+		return ResponseEntity.ok().body(HttpStatus.OK);
 	}
 }
