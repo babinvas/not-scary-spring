@@ -54,4 +54,32 @@ public class PhoneBalanceController {
 		phoneBalanceService.deleteById(id);
 		return ResponseEntity.ok().body(HttpStatus.OK);
 	}
+
+	//можно добавлять несколько параметров в запрос
+	@PutMapping("/change")
+	public ResponseEntity<?> changePhoneNumber(
+			@RequestParam Integer id,
+			@RequestParam Integer phoneNumber) {
+
+		PhoneBalanceDto phoneBalanceDto = phoneBalanceService.findDtoById(id);
+		phoneBalanceDto.setNumberPhone(phoneNumber);
+		phoneBalanceService.save(phoneBalanceDto);
+		return ResponseEntity.ok().body(HttpStatus.OK);
+	}
+
+	@PutMapping("/addrmoney1")
+	public ResponseEntity<?> addingMoney(
+		@RequestParam Integer phoneNumber,
+		@RequestParam Integer sum) {
+
+		phoneBalanceService.addingMoneyToBalance(phoneNumber, sum);
+		return ResponseEntity.ok().body(HttpStatus.OK);
+	}
+
+	@PutMapping("/addrmoney2")
+	public ResponseEntity<?> addingMoney(@RequestBody PhoneBalanceDto phoneBalanceDto) {
+
+		phoneBalanceService.addingMoneyToBalance(phoneBalanceDto.getNumberPhone(), phoneBalanceDto.getBalance());
+		return ResponseEntity.ok().body(HttpStatus.OK);
+	}
 }
