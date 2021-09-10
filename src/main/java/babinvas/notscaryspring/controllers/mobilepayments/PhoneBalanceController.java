@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -81,5 +84,28 @@ public class PhoneBalanceController {
 
 		phoneBalanceService.addingMoneyToBalance(phoneBalanceDto.getNumberPhone(), phoneBalanceDto.getBalance());
 		return ResponseEntity.ok().body(HttpStatus.OK);
+	}
+
+	// Записывает куки
+	@GetMapping("/set-cookie")
+	public ResponseEntity<?> setCookie(HttpServletResponse response) throws IOException {
+		// Создаем объект Cookie, в конструкторе указываем значения для name и value
+		Cookie cookie = new Cookie("data", "Come_to_the_dark_side");
+
+		// Устанавливаем путь
+		cookie.setPath("/");
+		// Устанавливается время жизни куки
+		cookie.setMaxAge(86400);
+		// Добавляем Cookie в запрос
+		response.addCookie(cookie);
+		// Устанавливаем контекст
+		response.setContentType("text/plain");
+		return ResponseEntity.ok().body(HttpStatus.OK);
+	}
+
+	// Читает куки
+	@GetMapping("/get-cookie")
+	public ResponseEntity<?> readCookie(@CookieValue String data) {
+		return ResponseEntity.ok().body(data);
 	}
 }
