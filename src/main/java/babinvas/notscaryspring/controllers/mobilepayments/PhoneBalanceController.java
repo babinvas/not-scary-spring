@@ -3,6 +3,7 @@ package babinvas.notscaryspring.controllers.mobilepayments;
 import babinvas.notscaryspring.dto.mobilepayments.PhoneBalanceDto;
 import babinvas.notscaryspring.services.mobilepayments.PhoneBalanceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/mobile")
@@ -107,5 +109,45 @@ public class PhoneBalanceController {
 	@GetMapping("/get-cookie")
 	public ResponseEntity<?> readCookie(@CookieValue String data) {
 		return ResponseEntity.ok().body(data);
+	}
+
+	// Читать заголовки
+	@GetMapping("/get-headers")
+	public ResponseEntity<?> getHeaders(@RequestHeader Map<String, String> headers) {
+		// Представляет заголовки ввиде мапы,
+		// где ключ это наименование заголовка, а значение мапы - это значение заголовка
+		return ResponseEntity.ok(headers);
+	}
+
+	// Записывает заголовок
+	@GetMapping("/set-header")
+	public ResponseEntity<?> setHeader() {
+		return ResponseEntity.ok().header("name-header", "value-header").body(HttpStatus.OK);
+	}
+
+	@GetMapping("/set-headers")
+	public ResponseEntity<?> setHeaders() {
+		HttpHeaders httpHeaders = new HttpHeaders();
+		// Создаем объект
+		// который имплементирует в мапу MultiValueMap<String, String>
+		// наполняем ее парами ключ-значение
+		// можно наполнить своими заголовками через метод add
+
+		httpHeaders.add("customer-header", "value-header1");
+
+		// HttpHeaders так же предлагает большой выбор стандартных заголовков
+		httpHeaders.add(HttpHeaders.FROM, "russia");
+
+		// Можно изменить существующий заголовок, вызвав для него сет-метод
+		httpHeaders.setDate(0);
+
+		// или получить значение конкретного заголовка
+		Long date = httpHeaders.getDate();
+		System.out.println(date);
+
+		return ResponseEntity
+				.ok()
+				.headers(httpHeaders) // Здесь метод принимающий MultiValueMap<String, String>
+				.body(HttpStatus.OK);
 	}
 }
